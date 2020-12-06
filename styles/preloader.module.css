@@ -1,0 +1,8 @@
+.preloaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 1002px;
+  padding-bottom: 500px;
+}

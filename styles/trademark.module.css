@@ -1,0 +1,32 @@
+.trademark {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 291px;
+  padding: 8px 15px;
+  border-top: solid 1px #979797;
+  font-size: 15px;
+  color: #666;
+  cursor: pointer;
+}
+
+.trademarkActive {
+  background-color: #5f9e52;
+  color: #fff;
+}
+
+.check {
+  border-radius: 2px;
+  border: 1px solid #979797 !important;
+  padding: 2px !important;
+}
+
+.checkActive {
+  border: 1px solid #fff !important;
+}
+
+.trademarkTitle {
+  margin: 0;
+  margin-left: 10px;
+  word-break: break-all;
+}

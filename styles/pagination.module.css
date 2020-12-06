@@ -1,0 +1,42 @@
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  outline: none;
+}
+
+.extremePages {
+  display: none;
+}
+
+.activeDots {
+  display: inline;
+  width: 28px;
+  text-align: center;
+  vertical-align: sub;
+  cursor: default;
+}
+
+.pageNumber {
+  display: block;
+  min-width: 28px;
+  height: 28px;
+  margin: 0 5px;
+  border: 1px solid #cadcb0;
+  background-color: #fff;
+  color: #666;
+  text-align: center;
+  transition: background-color 1s, color .5s;
+  outline: none;
+  cursor: pointer;
+}
+
+.pageNumber:hover {
+  background-color: #5f9e52;
+  color: #fff;
+}
+
+.selectedPage {
+  background-color: #5f9e52;
+  color: #fff;
+}

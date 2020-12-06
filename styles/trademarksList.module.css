@@ -1,0 +1,27 @@
+.container {
+  width: 293px;
+  margin: 30px;
+  margin-bottom: 0;
+  padding-bottom: 416px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+}
+
+.trademarksListTitle {
+  margin: 10px 0;
+  font-size: inherit;
+  color: #121112;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.trademarksList {
+  max-height: 434px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: solid 1px #979797;
+  border-top: none;
+}

@@ -1,0 +1,25 @@
+.sortBy {
+  margin-right: 5px;
+  font-size: 13px;
+  letter-spacing: 1.13px;
+  color: #666;
+  cursor: pointer;
+}
+
+.sortByActive {
+  color: #121112;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.arrow {
+  margin-right: 20px;
+  font-family: LucidaGrande;
+  font-size: 13px;
+  letter-spacing: 1.13px;
+  color: #666;
+}
+
+.activeArrow {
+  color: #121112;
+}

@@ -1,0 +1,90 @@
+.basketWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 1366px;
+  min-height: 800px;
+  margin: 0 auto;
+  padding: 35px 30px 302px;
+}
+
+.basketTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.44px;
+  color: #3f3e3e;
+}
+
+.basketProductWrapper {
+  margin: 30px 3px 0 1px;
+  border-radius: 2px;
+  border: solid 1px rgba(169, 174, 172, 0.45);
+  border-bottom: none;
+}
+
+.emptyBasket {
+  border: none;
+}
+
+.emptyBasketText {
+  margin: 20px;
+}
+
+.summaryWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  margin: 25px 0;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 9px 30px 10px;
+  border-radius: 2px;
+  border: solid 1px #5f9e52;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.1px;
+  color: #5f9e52;
+}
+
+.checkout {
+  background-color: #5f9e52;
+  color: #fff;
+}
+
+.arrow {
+  font-family: 'LucidaGrande';
+}
+
+.totalPrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: end;
+}
+
+.summary {
+  margin: 0;
+  margin-bottom: 6px;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: 1.15px;
+  color: #3f3e3e;
+}
+
+.cashback {
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.96px;
+  color: #666;
+}
