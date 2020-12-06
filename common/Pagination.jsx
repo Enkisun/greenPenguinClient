@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import cn from 'classnames'
-import classes from '../styles/pagination.module.css'
+import classes from './pagination.module.css'
 
 const Pagination = ({ currentPage, pageSize, onPageChanged, portionSize = 3 }) => {
 

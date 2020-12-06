@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux';
-import { setProductCount, setTotalPrice, deleteBasketProduct, deleteProductCount } from '../redux/basketReducer';
-import classes from '../styles/basketProduct.module.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductCount, setTotalPrice, deleteBasketProduct, deleteProductCount } from '../../redux/basketReducer'
+import classes from './basketProduct.module.css'
 
-export const BasketProduct = ({ basketProduct }) => {
+const BasketProduct = ({ basketProduct }) => {
 
   let dispatch = useDispatch();
   let { productsCount } = useSelector(state => state).basketReducer;
@@ -50,3 +50,5 @@ export const BasketProduct = ({ basketProduct }) => {
     </div>
   )
 }
+
+export default BasketProduct;

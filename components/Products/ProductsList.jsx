@@ -5,7 +5,7 @@ import Pagination from '../../common/Pagination'
 import Preloader from '../../common/Preloader'
 import Product from './Product'
 import SortByItem from './SortByItem'
-import classes from '../../styles/productsList.module.css'
+import classes from './productsList.module.css'
 
 const SORT_BY = {
   'PRICE': "По цене",

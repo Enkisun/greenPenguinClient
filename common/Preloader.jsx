@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import classes from "../styles/preloader.module.css"
+import classes from './preloader.module.css'
 
 const Preloader = () => { 
   return <div className={classes.preloaderWrapper}>

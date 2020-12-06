@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryFilter, setSubcategoryFilter } from '../../redux/categoriesReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
-import classes from '../../styles/category.module.css'
+import classes from './category.module.css'
 
 const Category = ({ category }) => {
 

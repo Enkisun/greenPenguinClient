@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTrademarkFilter, removeTrademarkFilter } from '../../redux/trademarksReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
-import classes from '../../styles/trademark.module.css'
+import classes from './trademark.module.css'
 
 const Trademark = ({ trademark }) => {
 

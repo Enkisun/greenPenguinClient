@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { addBasketProduct, setTotalPrice, addProductCount } from '../../redux/basketReducer'
 import cn from 'classnames'
-import classes from "../../styles/product.module.css"
+import classes from './product.module.css'
 
 const Product = ({ product, dispatch }) => {
 

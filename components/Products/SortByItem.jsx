@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { setSortBy, setSortingOrder } from '../../redux/productsReducer';
-import cn from 'classnames';
-import classes from '../../styles/sortByItem.module.css';
+import { useState } from 'react'
+import { setSortBy, setSortingOrder } from '../../redux/productsReducer'
+import cn from 'classnames'
+import classes from './sortByItem.module.css'
 
 const SortByItem = ({ sortByItem, sortBy, dispatch }) => {
 

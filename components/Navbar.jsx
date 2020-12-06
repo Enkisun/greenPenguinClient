@@ -1,16 +1,13 @@
 import Image from 'next/image'
-import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeTrademarkFilters } from '../redux/trademarksReducer';
-import { setCategoryFilter, setSubcategoryFilter } from '../redux/categoriesReducer';
-import { setCurrentPage, setSearchValue, setSortBy } from '../redux/productsReducer';
-import cn from 'classnames';
-import classes from '../styles/navbar.module.css';
+import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeTrademarkFilters } from '../redux/trademarksReducer'
+import { setCategoryFilter, setSubcategoryFilter } from '../redux/categoriesReducer'
+import { setCurrentPage, setSearchValue, setSortBy } from '../redux/productsReducer'
+import cn from 'classnames'
+import classes from './navbar.module.css'
 
 export const Navbar = () => {
-
-  // const Router = useRouter();
-  // const auth = useContext(AuthContext);
 
   let dispatch = useDispatch();
   let { searchValue, loading } = useSelector(state => state).productsReducer;
@@ -25,12 +22,6 @@ export const Navbar = () => {
     dispatch(setSortBy(''));
   }
 
-  const logoutHandler = e => {
-    e.preventDefault();
-    // auth.logout();
-    // Router.push('/');
-  }
-
   const setFilter = e => {
     if (loading) return
     dispatch(setCategoryFilter(e.target.innerHTML));
@@ -40,7 +31,7 @@ export const Navbar = () => {
   const onChange = e => dispatch(setSearchValue(e.target.value));
 
   let items = categories && categories.map((category, i) => (
-    <li key={category._id} className={cn(classes.listItem, {[classes.lastItem]: i === (categories.length - 1)})} onClick={e => setFilter(e)}>
+    <li key={category._id} className={cn(classes.listItem, {[classes.lastItem]: i === (categories.length - 1)})} onClick={setFilter}>
       {category.category}
     </li>
   ));
@@ -55,7 +46,7 @@ export const Navbar = () => {
 
         <div className={classes.searchWrapper}>
           <label htmlFor="search" className={classes.label}>
-            <input type="text" id="search" placeholder="Поиск..." className={classes.search} value={searchValue} onChange={e => onChange(e)} />
+            <input type="text" id="search" placeholder="Поиск..." className={classes.search} value={searchValue} onChange={onChange} />
             
             <div className={classes.searchIconWrapper} onClick={getProductsWithSearch}>
               <Image src='/search.svg' alt='search' width='21px' height='21px' />
