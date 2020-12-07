@@ -62,7 +62,7 @@ export const Navbar = () => {
 
           <div className={classes.authProperties}>
             <Image src='/user.svg' alt='user' width='16px' height='16px' className={classes.authImage} />
-            <a href="#" className={classes.authLink} onClick={logoutHandler}>выйти</a>
+            <a href="#" className={classes.authLink}>выйти</a>
           </div>
         </div>
       </header>

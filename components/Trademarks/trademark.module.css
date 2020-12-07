@@ -22,7 +22,7 @@
 }
 
 .checkActive {
-  border: 1px solid #fff !important;
+  border-color: #fff !important;
 }
 
 .trademarkTitle {

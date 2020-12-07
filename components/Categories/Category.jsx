@@ -19,7 +19,7 @@ const Category = ({ category }) => {
 
   const items = category.subcategory.length && category.subcategory.map(subcategory => (
     <li key={subcategory} className={cn(classes.subcategory, {[classes.subcategoryActive]: subcategoryFilter === subcategory})}
-     onClick={() => setFilter(category.category, subcategory)}>
+    onClick={() => setFilter(category.category, subcategory)}>
       {subcategory}
     </li>
   ));

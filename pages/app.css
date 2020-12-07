@@ -16,11 +16,6 @@ a {
   box-sizing: border-box;
 }
 
-::marker {
-  font-size: 8px;
-  font-family: system-ui;
-}
-
 .container {
   position: relative;
   min-height: 100vh;

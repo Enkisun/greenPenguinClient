@@ -27,8 +27,7 @@ const Trademark = ({ trademark }) => {
 
   return (
     <li className={cn(classes.trademark, {[classes.trademarkActive]: activeTrademark})} onClick={setFilter}>
-      <Image className={cn(classes.check, {[classes.checkActive]: activeTrademark})} 
-        src='/check.svg' alt='check' width='16px' height='16px' />
+      <Image className={cn(classes.check, {[classes.checkActive]: activeTrademark})} src='/check.svg' alt='check' width='16px' height='16px' />
       <p className={classes.trademarkTitle}>{trademark}</p>
     </li>
   )
