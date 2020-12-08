@@ -29,8 +29,6 @@ const Product = ({ product, dispatch }) => {
     setCount(++count);
   }
 
-  console.log(product.weight, product.volume)
-
   return (
     <div className={styles.productWrapper}>
       <div className={styles.product}>
