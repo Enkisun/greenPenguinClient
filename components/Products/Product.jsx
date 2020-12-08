@@ -29,6 +29,8 @@ const Product = ({ product, dispatch }) => {
     setCount(++count);
   }
 
+  console.log(product.weight, product.volume)
+
   return (
     <div className={styles.productWrapper}>
       <div className={styles.product}>
@@ -38,7 +40,7 @@ const Product = ({ product, dispatch }) => {
         
         <div className={styles.info}>
           <p className={styles.price}>{product.price} руб/шт</p>
-          <span className={styles.volume}>{product.volume} мл</span>
+          <span className={styles.volume}>{product.weight ? `${product.weight} гр` : `${product.volume} мл`}</span>
         </div>
 
         <div className={styles.inactiveInfo}>
