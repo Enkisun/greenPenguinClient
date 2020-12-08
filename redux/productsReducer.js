@@ -40,7 +40,7 @@ const productsSlice = createSlice({
   }
 })
 
-const { addProduct, deleteProducts, setTotalProductsCount, setLoading } = productsSlice.actions
+export const { addProduct, deleteProducts, setTotalProductsCount, setLoading } = productsSlice.actions
 
 const arrayBufferToBase64 = buffer => {
   let binary = '';
