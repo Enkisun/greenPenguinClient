@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryFilter, setSubcategoryFilter } from '../../redux/categoriesReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
-import classes from './category.module.css'
+import styles from './category.module.css'
 
 const Category = ({ category }) => {
 
@@ -18,7 +18,7 @@ const Category = ({ category }) => {
   };
 
   const items = category.subcategory.length && category.subcategory.map(subcategory => (
-    <li key={subcategory} className={cn(classes.subcategory, {[classes.subcategoryActive]: subcategoryFilter === subcategory})}
+    <li key={subcategory} className={cn(styles.subcategory, {[styles.subcategoryActive]: subcategoryFilter === subcategory})}
     onClick={() => setFilter(category.category, subcategory)}>
       {subcategory}
     </li>
@@ -26,12 +26,12 @@ const Category = ({ category }) => {
 
   return (
     <li>
-      <p className={cn(classes.categoryTitle, {[classes.categoryTitleActive]: categoryFilter === category.category})}
+      <p className={cn(styles.categoryTitle, {[styles.categoryTitleActive]: categoryFilter === category.category})}
        onClick={() => setFilter(category.category)}>
         {category.category}
       </p>
 
-      <ul className={cn(classes.subcategories, {[classes.subcategoriesActive]: (categoryFilter === category.category && items)})}>
+      <ul className={cn(styles.subcategories, {[styles.subcategoriesActive]: (categoryFilter === category.category && items)})}>
         {items}
       </ul>
     </li>

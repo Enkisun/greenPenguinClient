@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTrademarkFilter, removeTrademarkFilter } from '../../redux/trademarksReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
-import classes from './trademark.module.css'
+import styles from './trademark.module.css'
 
 const Trademark = ({ trademark }) => {
 
@@ -26,9 +26,9 @@ const Trademark = ({ trademark }) => {
   }, [activeTrademark, loading]);
 
   return (
-    <li className={cn(classes.trademark, {[classes.trademarkActive]: activeTrademark})} onClick={setFilter}>
-      <Image className={cn(classes.check, {[classes.checkActive]: activeTrademark})} src='/check.svg' alt='check' width='16px' height='16px' />
-      <p className={classes.trademarkTitle}>{trademark}</p>
+    <li className={cn(styles.trademark, {[styles.trademarkActive]: activeTrademark})} onClick={setFilter}>
+      <Image className={cn(styles.check, {[styles.checkActive]: activeTrademark})} src='/check.svg' alt='check' width='16px' height='16px' />
+      <p className={styles.trademarkTitle}>{trademark}</p>
     </li>
   )
 }

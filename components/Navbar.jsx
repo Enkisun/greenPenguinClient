@@ -5,7 +5,7 @@ import { removeTrademarkFilters } from '../redux/trademarksReducer'
 import { setCategoryFilter, setSubcategoryFilter } from '../redux/categoriesReducer'
 import { setCurrentPage, setSearchValue, setSortBy } from '../redux/productsReducer'
 import cn from 'classnames'
-import classes from './navbar.module.css'
+import styles from './navbar.module.css'
 
 export const Navbar = () => {
 
@@ -31,57 +31,57 @@ export const Navbar = () => {
   const onChange = e => dispatch(setSearchValue(e.target.value));
 
   let items = categories && categories.map((category, i) => (
-    <li key={category._id} className={cn(classes.listItem, {[classes.lastItem]: i === (categories.length - 1)})} onClick={setFilter}>
+    <li key={category._id} className={cn(styles.listItem, {[styles.lastItem]: i === (categories.length - 1)})} onClick={setFilter}>
       {category.category}
     </li>
   ));
 
   return (
     <>
-      <header className={classes.header}>
+      <header className={styles.header}>
         <div>
-          <h3 className={classes.logo}>green penguin</h3>
+          <h3 className={styles.logo}>green penguin</h3>
           <span>магазин натуральных продуктов</span>
         </div>
 
-        <div className={classes.searchWrapper}>
-          <label htmlFor="search" className={classes.label}>
-            <input type="text" id="search" placeholder="Поиск..." className={classes.search} value={searchValue} onChange={onChange} />
+        <div className={styles.searchWrapper}>
+          <label htmlFor="search" className={styles.label}>
+            <input type="text" id="search" placeholder="Поиск..." className={styles.search} value={searchValue} onChange={onChange} />
             
-            <div className={classes.searchIconWrapper} onClick={getProductsWithSearch}>
+            <div className={styles.searchIconWrapper} onClick={getProductsWithSearch}>
               <Image src='/search.svg' alt='search' width='21px' height='21px' />
             </div>
           </label>
         </div>
 
         <div>
-          <div className={classes.requestCallWrapper}>
-            <p className={classes.number}>+ 375 (33) 881-76-55</p>
-            <span className={classes.requestCall}>Заказать звонок</span>
+          <div className={styles.requestCallWrapper}>
+            <p className={styles.number}>+ 375 (33) 881-76-55</p>
+            <span className={styles.requestCall}>Заказать звонок</span>
           </div>
 
-          <div className={classes.authProperties}>
-            <Image src='/user.svg' alt='user' width='16px' height='16px' className={classes.authImage} />
-            <a href="#" className={classes.authLink}>выйти</a>
+          <div className={styles.authProperties}>
+            <Image src='/user.svg' alt='user' width='16px' height='16px' className={styles.authImage} />
+            <a href="#" className={styles.authLink}>выйти</a>
           </div>
         </div>
       </header>
 
-      <nav className={classes.navigation}>
-        <ul className={classes.list}>
+      <nav className={styles.navigation}>
+        <ul className={styles.list}>
           {items}
         </ul>
 
-        <div className={classes.basketWrapper}>
+        <div className={styles.basketWrapper}>
           <Link href="/basket">
-            <a className={classes.basketLink}>
-              <Image src='/basket.svg' alt='basket' width='36.6px' height='37.8px' className={classes.basketImage} />
+            <a className={styles.basketLink}>
+              <Image src='/basket.svg' alt='basket' width='36.6px' height='37.8px' className={styles.basketImage} />
 
-              { basketProducts.length > 0 && <p className={classes.totalProducts}>{basketProducts.length}</p> }
+              { basketProducts.length > 0 && <p className={styles.totalProducts}>{basketProducts.length}</p> }
 
-              <div className={classes.basketInfo}>
-                <span className={classes.basketText}>Корзина</span>
-                <h6 className={classes.totalPrice}>{totalPrice} руб</h6>
+              <div className={styles.basketInfo}>
+                <span className={styles.basketText}>Корзина</span>
+                <h6 className={styles.totalPrice}>{totalPrice} руб</h6>
               </div>
             </a>
           </Link>

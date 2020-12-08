@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { addBasketProduct, setTotalPrice, addProductCount } from '../../redux/basketReducer'
 import cn from 'classnames'
-import classes from './product.module.css'
+import styles from './product.module.css'
 
 const Product = ({ product, dispatch }) => {
 
@@ -30,25 +30,25 @@ const Product = ({ product, dispatch }) => {
   }
 
   return (
-    <div className={classes.productWrapper}>
-      <div className={classes.product}>
+    <div className={styles.productWrapper}>
+      <div className={styles.product}>
 
-        <Image className={classes.image} src={product.image ? product.image.src : '/defaultImage.svg'} alt="productImage" width='180px' height='180px' />
-        <p className={classes.name}>{product.name}</p>
+        <Image className={styles.image} src={product.image ? product.image.src : '/defaultImage.svg'} alt="productImage" width='180px' height='180px' />
+        <p className={styles.name}>{product.name}</p>
         
-        <div className={classes.info}>
-          <p className={classes.price}>{product.price} руб/шт</p>
-          <span className={classes.volume}>{product.volume} мл</span>
+        <div className={styles.info}>
+          <p className={styles.price}>{product.price} руб/шт</p>
+          <span className={styles.volume}>{product.volume} мл</span>
         </div>
 
-        <div className={classes.inactiveInfo}>
-          <div className={classes.counter}>
-            <button className={`${classes.increment} ${classes.decrement}`} onClick={decrement} disabled={isBusketProduct}>-</button>
-            <p className={classes.count}>{count}</p>
-            <button className={classes.increment} onClick={increment} disabled={isBusketProduct}>+</button>
+        <div className={styles.inactiveInfo}>
+          <div className={styles.counter}>
+            <button className={`${styles.increment} ${styles.decrement}`} onClick={decrement} disabled={isBusketProduct}>-</button>
+            <p className={styles.count}>{count}</p>
+            <button className={styles.increment} onClick={increment} disabled={isBusketProduct}>+</button>
           </div>
 
-          <button className={cn(classes.addToBasket, {[classes.insideBasket]: isBusketProduct})} 
+          <button className={cn(styles.addToBasket, {[styles.insideBasket]: isBusketProduct})} 
            onMouseDown={setProductToBasket} disabled={isBusketProduct}>
             {isBusketProduct ? 'в корзине' : 'в корзину'}
           </button>

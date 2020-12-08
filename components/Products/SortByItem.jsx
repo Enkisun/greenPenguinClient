@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { setSortBy, setSortingOrder } from '../../redux/productsReducer'
 import cn from 'classnames'
-import classes from './sortByItem.module.css'
+import styles from './sortByItem.module.css'
 
 const SortByItem = ({ sortByItem, sortBy, dispatch }) => {
 
@@ -20,10 +20,10 @@ const SortByItem = ({ sortByItem, sortBy, dispatch }) => {
 
   return (
     <>
-      <span className={cn(classes.sortBy, {[classes.sortByActive]: sortBy === sortByItem})} onClick={toggleSortBy}>
+      <span className={cn(styles.sortBy, {[styles.sortByActive]: sortBy === sortByItem})} onClick={toggleSortBy}>
         {sortByItem}
       </span>
-      <span className={cn(classes.arrow, {[classes.activeArrow]: sortBy === sortByItem})}>{arrowDirection === 'desc' ? '↓' : '↑'}</span>
+      <span className={cn(styles.arrow, {[styles.activeArrow]: sortBy === sortByItem})}>{arrowDirection === 'desc' ? '↓' : '↑'}</span>
     </>
   )
 }

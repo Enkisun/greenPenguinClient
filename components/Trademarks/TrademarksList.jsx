@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTrademarksTC } from '../../redux/trademarksReducer'
 import Trademark from './Trademark'
-import classes from './trademarksList.module.css'
+import styles from './trademarksList.module.css'
 
 const TrademarksList = () => {
 
@@ -18,9 +18,9 @@ const TrademarksList = () => {
   ));
 
   return (
-    <div className={classes.container}>
-      <h3 className={classes.trademarksListTitle}>Бренды</h3>
-      <ul className={classes.trademarksList}>
+    <div className={styles.container}>
+      <h3 className={styles.trademarksListTitle}>Бренды</h3>
+      <ul className={styles.trademarksList}>
         {items}
       </ul>
     </div>

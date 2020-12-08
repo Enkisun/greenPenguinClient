@@ -5,7 +5,7 @@ import Pagination from '../../common/Pagination'
 import Preloader from '../../common/Preloader'
 import Product from './Product'
 import SortByItem from './SortByItem'
-import classes from './productsList.module.css'
+import styles from './productsList.module.css'
 
 const SORT_BY = {
   'PRICE': "По цене",
@@ -37,12 +37,12 @@ const ProductsList = () => {
   ));
 
   return (
-    <div className={classes.container}>
-      <div className={classes.sortByWrapper}>
+    <div className={styles.container}>
+      <div className={styles.sortByWrapper}>
         {sortByItems}
       </div>
 
-      <div className={classes.productWrapper}>
+      <div className={styles.productWrapper}>
         {loading ? <Preloader /> : (items.length ? items : <p>Результатов нет</p>)}
       </div>
 

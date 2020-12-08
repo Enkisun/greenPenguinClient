@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProductCount, setTotalPrice, deleteBasketProduct, deleteProductCount } from '../../redux/basketReducer'
-import classes from './basketProduct.module.css'
+import styles from './basketProduct.module.css'
 
 const BasketProduct = ({ basketProduct }) => {
 
@@ -30,23 +30,23 @@ const BasketProduct = ({ basketProduct }) => {
   }
 
   return (
-    <div className={classes.container}>
-      <img src={basketProduct.image ? basketProduct.image.src : '/defaultImage.svg'} alt='productImage' width='120px' height='120px' className={classes.image} />
+    <div className={styles.container}>
+      <img src={basketProduct.image ? basketProduct.image.src : '/defaultImage.svg'} alt='productImage' width='120px' height='120px' className={styles.image} />
 
-      <div className={classes.info}>
-        <p className={classes.name}>{basketProduct.name}</p>
-        <span className={classes.volume}>{basketProduct.price} руб/шт</span>
+      <div className={styles.info}>
+        <p className={styles.name}>{basketProduct.name}</p>
+        <span className={styles.volume}>{basketProduct.price} руб/шт</span>
       </div>
 
-      <div className={classes.counter}>
-        <span className={`${classes.increment} ${classes.decrement}`} onClick={decrement}>_</span>
-        <p className={classes.count}>{correctObject.count}</p>
-        <span className={classes.increment} onClick={increment}>+</span>
+      <div className={styles.counter}>
+        <span className={`${styles.increment} ${styles.decrement}`} onClick={decrement}>_</span>
+        <p className={styles.count}>{correctObject.count}</p>
+        <span className={styles.increment} onClick={increment}>+</span>
       </div>
 
-      <h4 className={classes.price}>{price} руб</h4>
+      <h4 className={styles.price}>{price} руб</h4>
 
-      <Image src='/delete.svg' alt='delete' width='17px' height='17px' className={classes.delete} onClick={deleteProduct} />
+      <Image src='/delete.svg' alt='delete' width='17px' height='17px' className={styles.delete} onClick={deleteProduct} />
     </div>
   )
 }
