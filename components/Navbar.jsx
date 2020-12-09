@@ -24,6 +24,7 @@ export const Navbar = () => {
 
   const setFilter = e => {
     if (loading) return
+    dispatch(deleteProducts());
     dispatch(setCategoryFilter(e.target.innerHTML));
     dispatch(setSubcategoryFilter(''));
     dispatch(setCurrentPage(1));
@@ -77,7 +78,7 @@ export const Navbar = () => {
           {items}
         </ul>
 
-        <div className={styles.basketWrapper} onClick={() => dispatch(deleteProducts())}>
+        <div className={styles.basketWrapper}>
           <Link href="/basket">
             <a className={styles.basketLink}>
               <Image src='/basket.svg' alt='basket' width='36.6px' height='37.8px' className={styles.basketImage} />

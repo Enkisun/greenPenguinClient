@@ -49,15 +49,18 @@
   justify-content: space-between;
   width: 103px;
   height: 38px;
-  padding: 0 8px 0 9px;
   border-radius: 2.7px;
   border: solid 1px rgba(169, 174, 172, 0.55);
   background-color: #fff;
 }
 
 .increment {
-  width: 11px;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: inherit;
+  font-size: 22px;
   color: #979797;
   cursor: pointer;
 }
@@ -68,11 +71,11 @@
 
 .count {
   width: 46px;
-  height: 35px;
+  height: inherit;
   margin: 0;
   border-right: solid 1px rgba(169, 174, 172, 0.45);
   border-left: solid 1px rgba(169, 174, 172, 0.45);
-  padding-top: 5px;
+  padding-top: 7px;
   background-color: rgba(169, 174, 172, 0.1);
   font-size: 21.6px;
   color: #121112;
