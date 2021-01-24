@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategoriesTC } from '../../redux/categoriesReducer'
+import { getCategories } from '../../redux/categoriesReducer'
 import Category from './Category'
 import styles from './categoriesList.module.css'
 
@@ -9,12 +9,12 @@ const CategoriesList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategoriesTC());
+    dispatch(getCategories());
   }, []);
 
-  let { categories } = useSelector(state => state).categoriesReducer;
+  const categoriesData = useSelector(state => state.categories.categoriesData);
 
-  const items = categories && categories.map(category => (
+  const items = categoriesData?.map(category => (
     <Category key={category._id} category={category} />
   ));
 

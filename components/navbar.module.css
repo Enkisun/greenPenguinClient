@@ -81,6 +81,10 @@
   padding-top: 1px;
 }
 
+.requestCall:hover {
+  text-decoration: underline;
+}
+
 .authProperties {
   display: flex;
   align-items: flex-end;

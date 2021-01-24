@@ -1,18 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeTrademarkFilters } from '../redux/trademarksReducer'
-import { setCategoryFilter, setSubcategoryFilter } from '../redux/categoriesReducer'
+import { setCategoryFilter, setSubcategoryFilter, removeTrademarkFilters } from '../redux/categoriesReducer'
 import { setCurrentPage, setSearchValue, setSortBy, deleteProducts } from '../redux/productsReducer'
 import cn from 'classnames'
 import styles from './navbar.module.css'
 
 export const Navbar = () => {
 
-  let dispatch = useDispatch();
-  let { searchValue, loading } = useSelector(state => state).productsReducer;
-  let { basketProducts, totalPrice } = useSelector(state => state).basketReducer;
-  let { categories } = useSelector(state => state).categoriesReducer;
+  const dispatch = useDispatch();
+  const { searchValue, loading } = useSelector(state => state.products);
+  const { basketProducts, totalPrice } = useSelector(state => state.basket);
+  const categoriesData = useSelector(state => state.categories.categoriesData);
 
   const getProductsWithSearch = () => {
     dispatch(removeTrademarkFilters());
@@ -32,11 +31,11 @@ export const Navbar = () => {
 
   const onChange = e => dispatch(setSearchValue(e.target.value));
 
-  let items = categories && categories.map((category, i) => (
+  let items = categoriesData?.map((category, i) => (
     <Link href="/">
       <a>
-        <li key={category._id} className={cn(styles.listItem, {[styles.lastItem]: i === (categories.length - 1)})} onClick={setFilter}>
-          {category.category}
+        <li key={category._id} className={cn(styles.listItem, {[styles.lastItem]: i === (categoriesData.length - 1)})} onClick={setFilter}>
+          {category.name}
         </li>
       </a>
     </Link>

@@ -6,10 +6,11 @@ const categoriesSlice = createSlice({
     categories: [],
     categoryFilter: '',
     subcategoryFilter: '',
+    trademarkFilter: [],
   },
   reducers: {
-    addCategory: (state, action) => {
-      state.categories = [...state.categories, action.payload]
+    addCategories: (state, action) => {
+      state.categories = action.payload;
     },
     deleteCategories: state => {
       state.categories = [];
@@ -20,23 +21,37 @@ const categoriesSlice = createSlice({
     setSubcategoryFilter: (state, action) => {
       state.subcategoryFilter = action.payload;
     },
+    addTrademarkFilter: (state, action) => {
+      state.trademarkFilter = [...state.trademarkFilter, action.payload]
+    },
+    removeTrademarkFilter: (state, action) => {
+      state.trademarkFilter = state.trademarkFilter.filter(trademark => {
+        if (trademark !== action.payload) return trademark;
+      })
+    },
+    removeTrademarkFilters: state => {
+      state.trademarkFilter = [];
+    },
   }
 })
 
-export const { addCategory, deleteCategories, setCategoryFilter, setSubcategoryFilter } = categoriesSlice.actions
-
-export const getCategoriesTC = () => async dispatch => {
+export const getCategories = () => async dispatch => {
   await dispatch(deleteCategories());
 
-  const response = await fetch(`http://localhost:5000/api/categories`);
-  if (!response.ok) throw Error(response.statusText);
-  const json = await response.json();
+  try {
+    const response = await fetch(`//localhost:5000/categories`);
+    
+    const json = await response.json();
 
-  if (json) {
-    await Promise.all(json.categories.map(async category => await dispatch(addCategory(category)) ));
+    if (json) {
+      await dispatch(addCategories(json.categories));
+    }
+  } catch(e) {
+    console.log(e.message);
   }
 };
 
-const categoriesReducer = categoriesSlice.reducer
+export const { addCategories, deleteCategories, setCategoryFilter, setSubcategoryFilter,
+  addTrademarkFilter, removeTrademarkFilter, removeTrademarkFilters } = categoriesSlice.actions
 
-export default categoriesReducer;
+export default categoriesSlice.reducer;

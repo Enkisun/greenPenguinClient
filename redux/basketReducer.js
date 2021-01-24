@@ -5,23 +5,15 @@ const basketSlice = createSlice({
   initialState: {
     basketProducts: [],
     totalPrice: 0,
-    productsCount: [],
   },
   reducers: {
     addBasketProduct: (state, action) => {
-      state.basketProducts.push(action.payload)
+      state.basketProducts.push(action.payload);
     },
-    setTotalPrice: (state, action) => {
-      console.log(parseFloat(state.totalPrice) + parseFloat(action.payload))
-      state.totalPrice = (parseFloat(state.totalPrice) + parseFloat(action.payload)).toFixed(2);
-    },
-    addProductCount: (state, action) => {
-      state.productsCount = [...state.productsCount, action.payload];
-    },
-    setProductCount: (state, action) => {
-      state.productsCount = state.productsCount.map(product => {
+    changeProductCount: (state, action) => {
+      state.basketProducts = state.basketProducts.map(product => {
         if (product.id === action.payload.id) return {...product, count: action.payload.count}
-        else return product;
+        else return product
       });
     },
     deleteBasketProduct: (state, action) => {
@@ -29,16 +21,12 @@ const basketSlice = createSlice({
         if (product._id !== action.payload._id) return product
       });
     },
-    deleteProductCount: (state, action) => {
-      state.productsCount = state.productsCount.filter(product => {
-        if (product.id !== action.payload._id) return product
-      });
+    setTotalPrice: (state, action) => {
+      state.totalPrice = (parseFloat(state.totalPrice) + parseFloat(action.payload)).toFixed(2);
     },
   }
 });
 
-export const { addBasketProduct, setTotalPrice, addProductCount, setProductCount, deleteBasketProduct, deleteProductCount } = basketSlice.actions
+export const { addBasketProduct, setTotalPrice, deleteBasketProduct, changeProductCount } = basketSlice.actions
 
-const basketReducer = basketSlice.reducer
-
-export default basketReducer;
+export default basketSlice.reducer;

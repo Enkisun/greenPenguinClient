@@ -50,6 +50,10 @@
   list-style-type: none;
 }
 
+.listItem:hover {
+  text-decoration: underline;
+}
+
 .lastItem {
   border-right: none;
 }

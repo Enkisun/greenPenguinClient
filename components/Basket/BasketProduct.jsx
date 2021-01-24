@@ -1,48 +1,49 @@
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
-import { setProductCount, setTotalPrice, deleteBasketProduct, deleteProductCount } from '../../redux/basketReducer'
+import { useDispatch } from 'react-redux'
+import Counter from '../../common/Counter'
+import { setTotalPrice, deleteBasketProduct, changeProductCount } from '../../redux/basketReducer'
 import styles from './basketProduct.module.css'
 
 const BasketProduct = ({ basketProduct }) => {
 
-  let dispatch = useDispatch();
-  let { productsCount } = useSelector(state => state).basketReducer;
+  const dispatch = useDispatch();
 
-  let correctObject = productsCount && productsCount.find(product => product.id === basketProduct._id);
-  let price = (correctObject.count * correctObject.price).toFixed(2);
+  const price = (basketProduct.count * basketProduct.price).toFixed(2);
 
   const decrement = () => {
-    if (correctObject.count === 1) return;
-    dispatch(setProductCount({id: basketProduct._id, count: correctObject.count - 1}));
-    dispatch(setTotalPrice(-correctObject.price));
+    if (basketProduct.count > 1) {
+      dispatch(changeProductCount({id: basketProduct.id, count: basketProduct.count - 1}));
+      dispatch(setTotalPrice(-basketProduct.price));
+    }
   }
 
   const increment = () => {
-    if (correctObject.count === 99) return;
-    dispatch(setProductCount({id: basketProduct._id, count: correctObject.count + 1}));
-    dispatch(setTotalPrice(correctObject.price));
+    if (basketProduct.count < 99) {
+      dispatch(changeProductCount({id: basketProduct.id, count: basketProduct.count + 1}));
+      dispatch(setTotalPrice(basketProduct.price));
+    }
   }
 
   const deleteProduct = () => {
     dispatch(deleteBasketProduct(basketProduct));
-    dispatch(deleteProductCount(basketProduct));
     dispatch(setTotalPrice(-price));
   }
 
   return (
     <div className={styles.container}>
-      <img src={basketProduct.image ? basketProduct.image.src : '/defaultImage.svg'} alt='productImage' width='120px' height='120px' className={styles.image} />
+      <Image className={styles.image}
+       src={basketProduct.image ? `http://localhost:5000/${basketProduct.image}` : '/defaultImage.svg'}
+       alt='product_image'
+       width='120px'
+       height='120px'
+      />
 
       <div className={styles.info}>
         <p className={styles.name}>{basketProduct.name}</p>
         <span className={styles.volume}>{basketProduct.price} руб/шт</span>
       </div>
 
-      <div className={styles.counter}>
-        <span className={`${styles.increment} ${styles.decrement}`} onClick={decrement}>_</span>
-        <p className={styles.count}>{correctObject.count}</p>
-        <span className={styles.increment} onClick={increment}>+</span>
-      </div>
+      <Counter count={basketProduct.count} increment={increment} decrement={decrement} type='basket' />
 
       <h4 className={styles.price}>{price} руб</h4>
 

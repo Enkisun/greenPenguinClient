@@ -4,7 +4,7 @@ import styles from './pagination.module.css'
 
 const Pagination = ({ currentPage, pageSize, onPageChanged, portionSize = 3 }) => {
 
-  let { totalProductsCount } = useSelector(state => state).productsReducer;
+  const totalProductsCount = useSelector(state => state.products.totalProductsCount);
 
   let pagesCount = Math.ceil(totalProductsCount / pageSize);
   let pages = [];

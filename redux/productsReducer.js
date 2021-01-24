@@ -1,5 +1,38 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+export const getProducts = createAsyncThunk('products/getProducts',
+  async (currentPage, limit, category, subcategory, trademark, sortBy, sortingOrder, searchValue) => {
+    let productsURI = `//localhost:5000/products?page=${currentPage}&limit=${limit}`;
+    console.log(currentPage, limit, category, subcategory, trademark, sortBy, sortingOrder, searchValue)
+    if (category) {
+      productsURI += `&category=${category}`;
+    }
+  
+    if (subcategory) {
+      productsURI += `&subcategory=${subcategory}`;
+    }
+  
+    if (trademark?.length) {
+      productsURI += `&trademark=${trademark}`;
+    }
+
+    if (sortBy) {
+      productsURI += `&sortBy=${sortBy}`;
+    }
+
+    if (sortingOrder) {
+      productsURI += `&sortingOrder=${sortingOrder}`
+    }
+
+    if (searchValue) {
+      productsURI += `&search=${searchValue}`
+    }
+
+    const response = await fetch(productsURI);
+    return (await response.json())
+  }
+);
+
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
@@ -13,8 +46,8 @@ const productsSlice = createSlice({
     searchValue: '',
   },
   reducers: {
-    addProduct: (state, action) => {
-      state.products = [...state.products, action.payload]
+    addProducts: (state, action) => {
+      state.products = action.payload;
     },
     deleteProducts: state => {
       state.products = [];
@@ -37,50 +70,24 @@ const productsSlice = createSlice({
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
     }
+  },
+  extraReducers: {
+    [getProducts.pending]: (state) => {
+      state.loading = true
+    },
+    [getProducts.fulfilled]: (state, action) => {
+      state.totalProductsCount = action.payload.totalProductsCount.totalProductsCount
+      state.products = action.payload.products
+      state.loading = false
+    },
+    [getProducts.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.error
+    }
   }
 })
 
-export const { addProduct, deleteProducts, setTotalProductsCount, setLoading } = productsSlice.actions
+export const { addProducts, deleteProducts, setTotalProductsCount, setLoading,
+  setCurrentPage, setSortBy, setSortingOrder, setSearchValue } = productsSlice.actions
 
-const arrayBufferToBase64 = buffer => {
-  let binary = '';
-  let bytes = [].slice.call(new Uint8Array(buffer));
-  bytes.forEach(b => binary += String.fromCharCode(b));
-  return window.btoa(binary);
-};
-
-export const getProductsTC = createAsyncThunk('products/getProducts',
-  async (endpoint, {dispatch}) => {
-    dispatch(setLoading(true));
-    dispatch(deleteProducts());
-
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-      dispatch(setLoading(false));
-      throw Error(response.statusText);
-    }
-
-    const json = await response.json();
-    if (json) {
-      dispatch(setTotalProductsCount(json.totalProductsCount.totalProductsCount));
-      await Promise.all(json.products.map(async product => {
-  
-        if (product.image) {
-          const base64Flag = `data:${product.image.contentType};base64,`;
-          const imageStr = arrayBufferToBase64(product.image.data.data);
-          product.image = {src: base64Flag + imageStr, name: product.image.name};
-        }
-  
-        dispatch(addProduct(product));
-      }));
-    }
-    dispatch(setLoading(false));
-  }
-);
-
-const productsReducer = productsSlice.reducer
-
-export default productsReducer;
-
-export const { setCurrentPage, setSortBy, setSortingOrder, setSearchValue } = productsSlice.actions
+export default productsSlice.reducer;

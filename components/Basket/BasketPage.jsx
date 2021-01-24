@@ -6,12 +6,12 @@ import styles from './basketPage.module.css'
 
 const BasketPage = () => {
 
-  let { basketProducts, totalPrice } = useSelector(state => state).basketReducer;
+  const { basketProducts, totalPrice } = useSelector(state => state.basket);
 
-  let cashback = (totalPrice * 0.02).toFixed(2);
+  const cashback = (totalPrice * 0.02).toFixed(2);
 
-  let items = basketProducts && basketProducts.map(product => (
-    <BasketProduct key={product._id} basketProduct={product} />
+  const items = basketProducts?.map(product => (
+    <BasketProduct key={product.id} basketProduct={product} />
   ));
 
   return (
@@ -38,7 +38,7 @@ const BasketPage = () => {
         </div>
 
         <div className={styles.btnWrapper}>
-          <a href='#' className={`${styles.btn} ${styles.checkout}`}>Оформить заказ</a>
+          <a href='#' className={cn(styles.btn, styles.checkout)}>Оформить заказ</a>
         </div>
       </div>
     </div>

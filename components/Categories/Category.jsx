@@ -7,8 +7,8 @@ import styles from './category.module.css'
 const Category = ({ category }) => {
 
   const dispatch = useDispatch();
-  let { categoryFilter, subcategoryFilter } = useSelector(state => state).categoriesReducer;
-  let { loading } = useSelector(state => state).productsReducer;
+  const { categoryFilter, subcategoryFilter } = useSelector(state => state.categories);
+  const loading = useSelector(state => state.products.loading);
 
   const setFilter = (category, subcategory = '') => {
     if (loading) return

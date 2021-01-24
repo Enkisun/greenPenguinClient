@@ -1,55 +1,66 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { addBasketProduct, setTotalPrice, addProductCount } from '../../redux/basketReducer'
+import { addBasketProduct, setTotalPrice, changeProductCount } from '../../redux/basketReducer'
 import cn from 'classnames'
 import styles from './product.module.css'
+import Counter from '../../common/Counter'
 
 const Product = ({ product, dispatch }) => {
 
-  let { basketProducts, productsCount } = useSelector(state => state).basketReducer;
+  const { basketProducts } = useSelector(state => state.basket);
 
-  let isBusketProduct = basketProducts.find(busketProduct => busketProduct._id === product._id)
-  let isBusketCountProduct = productsCount && productsCount.find(busketCountProduct => busketCountProduct.id === product._id);
-  let [count, setCount] = useState(isBusketCountProduct ? isBusketCountProduct.count : 1);
+  const isBusketProduct = basketProducts?.find(busketProduct => busketProduct.id === product._id)
+  let [count, setCount] = useState(isBusketProduct ? isBusketProduct.count : 1);
 
-  const setProductToBasket = () => {
-    dispatch(addProductCount({id: product._id, count, price: product.price}));
+  const addProductToBasket = () => {
+    dispatch(addBasketProduct({id: product._id, count, price: product.price, image: product.image, name: product.name}));
     dispatch(setTotalPrice(product.price * count));
-    dispatch(addBasketProduct(product));
+  }
+
+  const updateBasketProducts = type => {
+    dispatch(changeProductCount({id: product._id, count}));
+    dispatch(setTotalPrice(type === 'asc' ? product.price : -(product.price)));
   }
 
   const decrement = () => {
-    if (count === 1) return;
-    setCount(--count);
+    if (count > 1) {
+      setCount(--count);
+      isBusketProduct && updateBasketProducts('desc');
+    }
   }
 
   const increment = () => {
-    if (count === 99) return;
-    setCount(++count);
+    if (count < 99) {
+      setCount(++count);
+      isBusketProduct && updateBasketProducts('asc');
+    }
   }
 
   return (
     <div className={styles.productWrapper}>
       <div className={styles.product}>
 
-        <Image className={styles.image} src={product.image ? product.image.src : '/defaultImage.svg'} alt="productImage" width='180px' height='180px' />
+        <Image 
+         className={styles.image} 
+         src={product.image ? `http://localhost:5000/${product.image}` : '/defaultImage.svg'}
+         alt="product_image"
+         width='180px'
+         height='180px'
+        />
+
         <p className={styles.name}>{product.name}</p>
         
         <div className={styles.info}>
           <p className={styles.price}>{product.price} руб/шт</p>
-          <span className={styles.volume}>{product.weight ? `${product.weight} гр` : `${product.volume} мл`}</span>
+          <span className={styles.volume}>{product.size} {product.unit}</span>
         </div>
 
         <div className={styles.inactiveInfo}>
-          <div className={styles.counter}>
-            <button className={`${styles.increment} ${styles.decrement}`} onClick={decrement} disabled={isBusketProduct}>-</button>
-            <p className={styles.count}>{count}</p>
-            <button className={styles.increment} onClick={increment} disabled={isBusketProduct}>+</button>
-          </div>
+          <Counter count={count} increment={increment} decrement={decrement} type='product' />
 
           <button className={cn(styles.addToBasket, {[styles.insideBasket]: isBusketProduct})} 
-           onMouseDown={setProductToBasket} disabled={isBusketProduct}>
+           onMouseDown={addProductToBasket} disabled={isBusketProduct}>
             {isBusketProduct ? 'в корзине' : 'в корзину'}
           </button>
         </div>

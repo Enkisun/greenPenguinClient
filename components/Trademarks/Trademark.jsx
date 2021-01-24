@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTrademarkFilter, removeTrademarkFilter } from '../../redux/trademarksReducer'
+import { addTrademarkFilter, removeTrademarkFilter } from '../../redux/categoriesReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
 import styles from './trademark.module.css'
@@ -9,8 +9,8 @@ import styles from './trademark.module.css'
 const Trademark = ({ trademark }) => {
 
   const dispatch = useDispatch();
-  let { trademarkFilter } = useSelector(state => state).trademarksReducer;
-  let { loading } = useSelector(state => state).productsReducer;
+  const trademarkFilter = useSelector(state => state.categories.trademarkFilter);
+  const loading = useSelector(state => state.products.loading);
 
   const [activeTrademark, setActiveTrademark] = useState(false);
 
