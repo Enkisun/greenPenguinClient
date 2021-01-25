@@ -1,57 +1,54 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+export const getCategories = createAsyncThunk('categories/getCategories', async () => {
+  const response = await fetch(`http://localhost:5000/categories`);
+  return (await response.json());
+});
 
 const categoriesSlice = createSlice({
   name: 'categories',
   initialState: {
-    categories: [],
-    categoryFilter: '',
-    subcategoryFilter: '',
-    trademarkFilter: [],
+    categoriesData: [],
+    activeCategory: '',
+    activeSubcategory: '',
+    activeTrademarks: [],
   },
   reducers: {
     addCategories: (state, action) => {
-      state.categories = action.payload;
+      state.categoriesData = action.payload
     },
-    deleteCategories: state => {
-      state.categories = [];
+    setActiveCategory: (state, action) => {
+      state.activeCategory = action.payload;
     },
-    setCategoryFilter: (state, action) => {
-      state.categoryFilter = action.payload;
+    setActiveSubcategory: (state, action) => {
+      state.activeSubcategory = action.payload;
     },
-    setSubcategoryFilter: (state, action) => {
-      state.subcategoryFilter = action.payload;
+    setActiveTrademark: (state, action) => {
+      state.activeTrademarks = [...state.activeTrademarks, action.payload]
     },
-    addTrademarkFilter: (state, action) => {
-      state.trademarkFilter = [...state.trademarkFilter, action.payload]
-    },
-    removeTrademarkFilter: (state, action) => {
-      state.trademarkFilter = state.trademarkFilter.filter(trademark => {
+    removeActiveTrademark: (state, action) => {
+      state.activeTrademarks = state.activeTrademarks.filter(trademark => {
         if (trademark !== action.payload) return trademark;
       })
     },
-    removeTrademarkFilters: state => {
-      state.trademarkFilter = [];
+    removeActiveTrademarks: state => {
+      state.activeTrademarks = [];
+    },
+  },
+  extraReducers: {
+    [getCategories.fulfilled]: (state, action) => {
+      state.categoriesData = action.payload.categories
     },
   }
 })
 
-export const getCategories = () => async dispatch => {
-  await dispatch(deleteCategories());
+export const resetFilters = () => dispatch => {
+  dispatch(removeActiveTrademarks());
+  dispatch(setActiveCategory(''));
+  dispatch(setActiveSubcategory(''));
+} 
 
-  try {
-    const response = await fetch(`//localhost:5000/categories`);
-    
-    const json = await response.json();
-
-    if (json) {
-      await dispatch(addCategories(json.categories));
-    }
-  } catch(e) {
-    console.log(e.message);
-  }
-};
-
-export const { addCategories, deleteCategories, setCategoryFilter, setSubcategoryFilter,
-  addTrademarkFilter, removeTrademarkFilter, removeTrademarkFilters } = categoriesSlice.actions
+export const { addCategories, setActiveCategory, setActiveSubcategory,
+  setActiveTrademark, removeActiveTrademark, removeActiveTrademarks } = categoriesSlice.actions
 
 export default categoriesSlice.reducer;

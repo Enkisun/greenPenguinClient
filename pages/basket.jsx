@@ -1,7 +1,7 @@
-import BasketPage from "../components/Basket/BasketPage"
+import BasketContainer from '../components/Basket/BasketContainer'
 
 const Basket = () => {
-  return <BasketPage />
+  return <BasketContainer />
 }
 
 export default Basket;

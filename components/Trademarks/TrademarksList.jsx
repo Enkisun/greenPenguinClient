@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeTrademarkFilters } from '../../redux/categoriesReducer'
+import { removeActiveTrademarks } from '../../redux/categoriesReducer'
 import Trademark from './Trademark'
 import styles from './trademarksList.module.css'
 
@@ -9,27 +9,27 @@ const TrademarksList = () => {
   const [trademarks, setTrademarks] = useState();
 
   const dispatch = useDispatch();
-  const { categoryFilter, categoriesData } = useSelector(state => state.categories);
+  const { activeCategory, categoriesData } = useSelector(state => state.categories);
 
   useEffect(() => {
-    dispatch(removeTrademarkFilters());
+    dispatch(removeActiveTrademarks());
 
-    if (categoryFilter) {
-      categoriesData.map(item => {
-        if (item.name === categoryFilter) {
-          setTrademarks(item.trademarks)
+    if (activeCategory) {
+      categoriesData.map(category => {
+        if (category.name === activeCategory) {
+          setTrademarks(category.trademarks)
         }
       })
     }
-  }, [categoryFilter]);
+  }, [activeCategory]);
 
-  if (!categoryFilter) return null;
+  if (!activeCategory) return null;
 
   return (
     <div className={styles.container}>
       <h3 className={styles.trademarksListTitle}>Бренды</h3>
       <ul className={styles.trademarksList}>
-        { trademarks?.map(trademark => <Trademark key={trademark._id} trademark={trademark.name} />) }
+        { trademarks?.map(trademark => <Trademark key={trademark._id} trademark={trademark} />) }
       </ul>
     </div>
   )

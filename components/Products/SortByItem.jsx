@@ -21,7 +21,7 @@ const SortByItem = ({ sortByItem, sortBy, dispatch }) => {
   return (
     <>
       <span className={cn(styles.sortBy, {[styles.sortByActive]: sortBy === sortByItem})} onClick={toggleSortBy}>
-        {sortByItem}
+        {sortByItem === 'alphabet' ? 'По алфавиту' : 'По цене'}
       </span>
       <span className={cn(styles.arrow, {[styles.activeArrow]: sortBy === sortByItem})}>{arrowDirection === 'desc' ? '↓' : '↑'}</span>
     </>

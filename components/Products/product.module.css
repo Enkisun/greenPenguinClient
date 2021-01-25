@@ -73,8 +73,12 @@
 }
 
 .addToBasket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 86px;
   height: 22px;
+  padding-bottom: 3px;
   border: 1px solid #5f9e52;
   border-radius: 2px;
   background-color: #5f9e52;
@@ -85,7 +89,7 @@
 }
 
 .insideBasket {
+  padding-bottom: 1px;
   background-color: #fff;
   color: #5f9e52;
-  cursor: default;
 }

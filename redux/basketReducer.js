@@ -18,7 +18,7 @@ const basketSlice = createSlice({
     },
     deleteBasketProduct: (state, action) => {
       state.basketProducts = state.basketProducts.filter(product => {
-        if (product._id !== action.payload._id) return product
+        if (product.id !== action.payload.id) return product
       });
     },
     setTotalPrice: (state, action) => {

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import cn from 'classnames'
 import styles from './footer.module.css'
 
 export const Footer = () => {
@@ -9,11 +10,11 @@ export const Footer = () => {
         <p className={styles.paragraph}>РБ, г. Волковыск, ул. Замковая д. 18</p>
         <p className={styles.paragraph}>св-во о гос. регистрации N 44444444 от 01.01.2001</p>
         <p className={styles.paragraph}>выдано Волковысским райисполкомом.</p>
-        <p className={`${styles.paragraph} ${styles.lastParagraph}`}>Дата регистрации в торговом реестре РБ 25.07.2018 номер 422189</p> 
+        <p className={cn(styles.paragraph, styles.lastParagraph)}>Дата регистрации в торговом реестре РБ 25.07.2018 номер 422189</p> 
         <span className={styles.registrationDate}>© 2018 GREEN PENGUIN</span>
       </div>
 
-      <nav className={styles.navigation}>
+      <div className={styles.navigation}>
         <ul className={styles.list}>
           <li className={styles.listItem}>
             <a href="#" className={styles.link}>Cashback</a>
@@ -21,7 +22,7 @@ export const Footer = () => {
           <li className={styles.listItem}>
             <a href="#" className={styles.link}>Оплата</a>
           </li>
-          <li className={`${styles.listItem} ${styles.lastItem}`}>
+          <li className={cn(styles.listItem, styles.lastItem)}>
             <a href="#" className={styles.link}>Условия доставки</a>
           </li>
         </ul>
@@ -39,7 +40,7 @@ export const Footer = () => {
         </div>
 
         <span className={styles.siteInfo}>info@greenpenguin.by</span>
-      </nav>
+      </div>
     </footer>
   )
 }

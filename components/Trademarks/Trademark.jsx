@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTrademarkFilter, removeTrademarkFilter } from '../../redux/categoriesReducer'
+import { setActiveTrademark, removeActiveTrademark } from '../../redux/categoriesReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
 import styles from './trademark.module.css'
@@ -9,26 +9,22 @@ import styles from './trademark.module.css'
 const Trademark = ({ trademark }) => {
 
   const dispatch = useDispatch();
-  const trademarkFilter = useSelector(state => state.categories.trademarkFilter);
   const loading = useSelector(state => state.products.loading);
+  const activeTrademarks = useSelector(state => state.categories.activeTrademarks);
 
-  const [activeTrademark, setActiveTrademark] = useState(false);
-
-  useEffect(() => {
-    setActiveTrademark(trademarkFilter.find(trademarkFilter => trademarkFilter === trademark));
-  }, [trademarkFilter]);
+  const isActive = !!activeTrademarks?.find(activeTrademark => activeTrademark === trademark.name);
 
   const setFilter = useCallback(() => {
-    if (loading) return
-    setActiveTrademark(!activeTrademark);
-    dispatch(setCurrentPage(1));
-    activeTrademark ? dispatch(removeTrademarkFilter(trademark)) : dispatch(addTrademarkFilter(trademark));
-  }, [activeTrademark, loading]);
+    if (!loading) {
+      dispatch(setCurrentPage(1));
+      isActive ? dispatch(removeActiveTrademark(trademark.name)) : dispatch(setActiveTrademark(trademark.name));
+    }
+  }, [loading]);
 
   return (
-    <li className={cn(styles.trademark, {[styles.trademarkActive]: activeTrademark})} onClick={setFilter}>
-      <Image className={cn(styles.check, {[styles.checkActive]: activeTrademark})} src='/check.svg' alt='check' width='16px' height='16px' />
-      <p className={styles.trademarkTitle}>{trademark}</p>
+    <li className={cn(styles.trademark, {[styles.trademarkActive]: isActive})} onClick={setFilter}>
+      <Image className={cn(styles.check, {[styles.checkActive]: isActive})} src='/check.svg' alt='check' width='16px' height='16px' />
+      <p className={styles.trademarkTitle}>{trademark.name}</p>
     </li>
   )
 }

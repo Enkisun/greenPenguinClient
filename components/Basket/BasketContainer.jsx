@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import BasketProduct from './BasketProduct'
 import cn from 'classnames'
-import styles from './basketPage.module.css'
+import styles from './basketContainer.module.css'
 
-const BasketPage = () => {
+const BasketContainer = () => {
 
   const { basketProducts, totalPrice } = useSelector(state => state.basket);
 
@@ -45,4 +45,4 @@ const BasketPage = () => {
   )
 }
 
-export default BasketPage;
+export default BasketContainer;

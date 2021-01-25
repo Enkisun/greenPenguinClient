@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,8 +11,8 @@ const Product = ({ product, dispatch }) => {
 
   const { basketProducts } = useSelector(state => state.basket);
 
-  const isBusketProduct = basketProducts?.find(busketProduct => busketProduct.id === product._id)
-  let [count, setCount] = useState(isBusketProduct ? isBusketProduct.count : 1);
+  const busketProduct = basketProducts?.find(busketProduct => busketProduct.id === product._id)
+  let [count, setCount] = useState(busketProduct ? busketProduct.count : 1);
 
   const addProductToBasket = () => {
     dispatch(addBasketProduct({id: product._id, count, price: product.price, image: product.image, name: product.name}));
@@ -26,14 +27,14 @@ const Product = ({ product, dispatch }) => {
   const decrement = () => {
     if (count > 1) {
       setCount(--count);
-      isBusketProduct && updateBasketProducts('desc');
+      busketProduct && updateBasketProducts('desc');
     }
   }
 
   const increment = () => {
     if (count < 99) {
       setCount(++count);
-      isBusketProduct && updateBasketProducts('asc');
+      busketProduct && updateBasketProducts('asc');
     }
   }
 
@@ -59,10 +60,19 @@ const Product = ({ product, dispatch }) => {
         <div className={styles.inactiveInfo}>
           <Counter count={count} increment={increment} decrement={decrement} type='product' />
 
-          <button className={cn(styles.addToBasket, {[styles.insideBasket]: isBusketProduct})} 
-           onMouseDown={addProductToBasket} disabled={isBusketProduct}>
-            {isBusketProduct ? 'в корзине' : 'в корзину'}
-          </button>
+          {busketProduct && (
+            <Link href='/basket'>
+              <a className={cn(styles.addToBasket, styles.insideBasket)}>
+                в корзине
+              </a>
+            </Link>
+          )}
+
+          {!busketProduct && (
+            <button className={styles.addToBasket} onMouseDown={addProductToBasket}>
+              в корзину
+            </button>
+           )}
         </div>
 
       </div>

@@ -1,32 +1,35 @@
+import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCategoryFilter, setSubcategoryFilter, removeTrademarkFilters } from '../redux/categoriesReducer'
-import { setCurrentPage, setSearchValue, setSortBy, deleteProducts } from '../redux/productsReducer'
+import { resetFilters, setActiveCategory, setActiveSubcategory, getCategories } from '../redux/categoriesReducer'
+import { setCurrentPage, setSearchValue, setSortBy } from '../redux/productsReducer'
 import cn from 'classnames'
-import styles from './navbar.module.css'
+import styles from './header.module.css'
 
-export const Navbar = () => {
+export const Header = () => {
 
   const dispatch = useDispatch();
   const { searchValue, loading } = useSelector(state => state.products);
   const { basketProducts, totalPrice } = useSelector(state => state.basket);
   const categoriesData = useSelector(state => state.categories.categoriesData);
 
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
   const getProductsWithSearch = () => {
-    dispatch(removeTrademarkFilters());
-    dispatch(setCategoryFilter(''));
-    dispatch(setSubcategoryFilter(''));
+    dispatch(resetFilters());
     dispatch(setCurrentPage(1));
     dispatch(setSortBy(''));
   }
 
   const setFilter = e => {
-    if (loading) return
-    dispatch(deleteProducts());
-    dispatch(setCategoryFilter(e.target.innerHTML));
-    dispatch(setSubcategoryFilter(''));
-    dispatch(setCurrentPage(1));
+    if (!loading) {
+      dispatch(setActiveCategory(e.target.innerHTML));
+      dispatch(setActiveSubcategory(''));
+      dispatch(setCurrentPage(1));
+    }
   }
 
   const onChange = e => dispatch(setSearchValue(e.target.value));

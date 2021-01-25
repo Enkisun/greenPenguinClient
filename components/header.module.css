@@ -146,8 +146,7 @@
 }
 
 .listItem:hover {
-  font-size: 19px;
-  background-color: transparent;
+  text-decoration: underline;
 }
 
 .lastItem {

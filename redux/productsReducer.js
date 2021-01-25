@@ -1,42 +1,41 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const getProducts = createAsyncThunk('products/getProducts',
-  async (currentPage, limit, category, subcategory, trademark, sortBy, sortingOrder, searchValue) => {
-    let productsURI = `//localhost:5000/products?page=${currentPage}&limit=${limit}`;
-    console.log(currentPage, limit, category, subcategory, trademark, sortBy, sortingOrder, searchValue)
-    if (category) {
-      productsURI += `&category=${category}`;
-    }
-  
-    if (subcategory) {
-      productsURI += `&subcategory=${subcategory}`;
-    }
-  
-    if (trademark?.length) {
-      productsURI += `&trademark=${trademark}`;
-    }
+ async ({currentPage, limit, activeCategory, activeSubcategory, activeTrademarks, sortBy, sortingOrder, searchValue}) => {
+  let productsURI = `//localhost:5000/products?page=${currentPage}&limit=${limit}`;
 
-    if (sortBy) {
-      productsURI += `&sortBy=${sortBy}`;
-    }
-
-    if (sortingOrder) {
-      productsURI += `&sortingOrder=${sortingOrder}`
-    }
-
-    if (searchValue) {
-      productsURI += `&search=${searchValue}`
-    }
-
-    const response = await fetch(productsURI);
-    return (await response.json())
+  if (activeCategory) {
+    productsURI += `&category=${activeCategory}`;
   }
-);
+
+  if (activeSubcategory) {
+    productsURI += `&subcategory=${activeSubcategory}`;
+  }
+
+  if (activeTrademarks.length) {
+    productsURI += `&trademark=${activeTrademarks}`;
+  }
+
+  if (sortBy) {
+    productsURI += `&sortBy=${sortBy}`;
+  }
+
+  if (sortingOrder) {
+    productsURI += `&sortingOrder=${sortingOrder}`
+  }
+
+  if (searchValue) {
+    productsURI += `&search=${searchValue}`
+  }
+
+  const response = await fetch(productsURI);
+  return (await response.json())
+});
 
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    products: [],
+    productsData: [],
     currentPage: 1,
     limit: 12,
     totalProductsCount: 0,
@@ -47,10 +46,10 @@ const productsSlice = createSlice({
   },
   reducers: {
     addProducts: (state, action) => {
-      state.products = action.payload;
+      state.productsData = action.payload
     },
     deleteProducts: state => {
-      state.products = [];
+      state.productsData = [];
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
@@ -76,13 +75,12 @@ const productsSlice = createSlice({
       state.loading = true
     },
     [getProducts.fulfilled]: (state, action) => {
-      state.totalProductsCount = action.payload.totalProductsCount.totalProductsCount
-      state.products = action.payload.products
+      state.totalProductsCount = action.payload.totalProductsCount
+      state.productsData = action.payload.products
       state.loading = false
     },
-    [getProducts.rejected]: (state, action) => {
+    [getProducts.rejected]: (state) => {
       state.loading = false
-      state.error = action.error
     }
   }
 })

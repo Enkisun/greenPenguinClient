@@ -8,26 +8,28 @@ import SortByItem from './SortByItem'
 import styles from './productsList.module.css'
 
 const SORT_BY = {
-  'PRICE': "По цене",
-  'ALPHABET': "По алфавиту",
+  price: "price",
+  alphabet: "alphabet",
 }
 
 const ProductsList = () => {
 
   const dispatch = useDispatch();
-  const { products, currentPage, limit, loading, sortBy, sortingOrder, searchValue } = useSelector(state => state.products);
-  const { categoryFilter, subcategoryFilter, trademarkFilter } = useSelector(state => state.categories);
+  const { productsData, currentPage, limit, loading, sortBy, sortingOrder, searchValue } = useSelector(state => state.products);
+  const { activeCategory, activeSubcategory, activeTrademarks } = useSelector(state => state.categories);
 
   useEffect(() => {
     dispatch(deleteProducts());
-    dispatch(getProducts(currentPage, limit, categoryFilter, subcategoryFilter, trademarkFilter, sortBy, sortingOrder, searchValue))
-  }, [currentPage, categoryFilter, subcategoryFilter, trademarkFilter, sortBy, sortingOrder]);
+    dispatch(getProducts({currentPage, limit, activeCategory, activeSubcategory, activeTrademarks, sortBy, sortingOrder, searchValue}))
+  }, [currentPage, activeCategory, activeSubcategory, activeTrademarks, sortBy, sortingOrder]);
 
   const onPageChanged = newCurrentPage => {
-    (!loading) && dispatch(setCurrentPage(newCurrentPage, limit));
+    if (!loading) {
+      dispatch(setCurrentPage(newCurrentPage, limit));
+    }
   }
 
-  const items = products.length && products.map(product => (
+  const items = productsData.length && productsData.map(product => (
     <Product key={product._id} product={product} dispatch={dispatch} />
   ));
 
@@ -40,7 +42,8 @@ const ProductsList = () => {
       </div>
 
       <div className={styles.productWrapper}>
-        {loading ? <Preloader /> : (items.length ? items : <p>Результатов нет</p>)}
+        {loading && <Preloader />}
+        {!loading && items.length > 0 ? items : <p>Результатов нет</p>}
       </div>
 
       <Pagination currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged} />

@@ -6,40 +6,60 @@ const Pagination = ({ currentPage, pageSize, onPageChanged, portionSize = 3 }) =
 
   const totalProductsCount = useSelector(state => state.products.totalProductsCount);
 
-  let pagesCount = Math.ceil(totalProductsCount / pageSize);
+  const pagesCount = Math.ceil(totalProductsCount / pageSize);
+
   let pages = [];
 
-  for (let i = 1; i <= pagesCount; i++) { pages.push(i); }
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i); 
+  }
 
-  let lastPage = pages[pages.length - 1];
+  const lastPage = pages[pages.length - 1];
 
   let leftPortionPageNumber = currentPage - Math.ceil(portionSize / 2 - 1);
   let rightPortionPageNumber = currentPage + Math.floor(portionSize / 2);
 
-  if (currentPage === 1) rightPortionPageNumber = portionSize;
-  if (currentPage === lastPage) leftPortionPageNumber = lastPage - portionSize + 1;
+  if (currentPage === 1) {
+    rightPortionPageNumber = portionSize;
+  }
 
-  let portionItems = pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber);
+  if (currentPage === lastPage) {
+    leftPortionPageNumber = lastPage - portionSize + 1;
+  }
 
-  let portionItem = portionItems.map(page => (
-    <button key={page} className={cn(styles.pageNumber, {[styles.selectedPage]: currentPage === page})} onClick={() => onPageChanged(page)}>
-      {page}
-    </button>
-  ));
+  const portionItems = pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber);
 
-  if (totalProductsCount <= pageSize) return <></>
+  if (totalProductsCount <= pageSize) return null;
 
   return (
     <div className={styles.paginationWrapper}>
-      <button className={cn(styles.extremePages, {[styles.pageNumber]: currentPage > 1 })} onClick={() => onPageChanged(currentPage - 1)}>&lt; Назад</button>
-      <button className={cn(styles.extremePages, {[styles.pageNumber]: (leftPortionPageNumber - 1) >= 1})} onClick={() => onPageChanged(1)}>1</button>
-      <span className={cn(styles.extremePages, {[styles.activeDots]: (leftPortionPageNumber - 1) > 1})}>..</span>
+      <button className={styles.extreme} onClick={() => onPageChanged(currentPage - 1)} disabled={currentPage === 1}>
+        Предыдущая
+      </button>
 
-      {portionItem}
+      { (leftPortionPageNumber - 1) >= 1 && (
+        <button className={styles.pageNumber} onClick={() => onPageChanged(1)}>1</button>
+      )}
 
-      <span className={cn(styles.extremePages, {[styles.activeDots]: (lastPage - rightPortionPageNumber) > 1})}>..</span>
-      <button className={cn(styles.extremePages, {[styles.pageNumber]: (lastPage - rightPortionPageNumber) >= 1})} onClick={() => onPageChanged(lastPage)}>{lastPage}</button>
-      <button className={cn(styles.extremePages, {[styles.pageNumber]: currentPage < lastPage })} onClick={() => onPageChanged(currentPage + 1)}>Вперед &gt;</button>
+      { (leftPortionPageNumber - 1) > 1 && <span className={styles.activeDots}>..</span> }
+
+      { portionItems.map(page => (
+        <button key={page} className={cn(styles.pageNumber, {[styles.selectedPage]: currentPage === page})} onClick={() => onPageChanged(page)}>
+          {page}
+        </button>
+      ))}
+
+      { (lastPage - rightPortionPageNumber) > 1 && <span className={styles.activeDots}>..</span> }
+
+      { (lastPage - rightPortionPageNumber) >= 1 && (
+        <button className={styles.pageNumber} onClick={() => onPageChanged(lastPage)}>
+          {lastPage}
+        </button>
+      )}
+
+      <button className={styles.extreme} onClick={() => onPageChanged(currentPage + 1)} disabled={currentPage === lastPage}>
+        Следующая
+      </button>
     </div>
   )
 }

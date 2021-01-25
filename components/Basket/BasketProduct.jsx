@@ -31,7 +31,8 @@ const BasketProduct = ({ basketProduct }) => {
 
   return (
     <div className={styles.container}>
-      <Image className={styles.image}
+      <Image 
+       className={styles.image}
        src={basketProduct.image ? `http://localhost:5000/${basketProduct.image}` : '/defaultImage.svg'}
        alt='product_image'
        width='120px'

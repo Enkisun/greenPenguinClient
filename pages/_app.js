@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Provider } from 'react-redux'
-import { Navbar } from '../components/Navbar'
+import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import store from '../redux/reduxStore'
 import './app.css'
@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="shortcut icon" href="/static/favicon.svg" />
       </Head>
       <div className='container'>
-        <Navbar />
+        <Header />
         <Component {...pageProps} />
         <Footer />
       </div>

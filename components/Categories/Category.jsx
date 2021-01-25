@@ -1,41 +1,42 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setCategoryFilter, setSubcategoryFilter } from '../../redux/categoriesReducer'
+import { setActiveCategory, setActiveSubcategory } from '../../redux/categoriesReducer'
 import { setCurrentPage } from '../../redux/productsReducer'
 import cn from 'classnames'
 import styles from './category.module.css'
 
-const Category = ({ category }) => {
+const CategoryList = ({ category }) => {
 
   const dispatch = useDispatch();
-  const { categoryFilter, subcategoryFilter } = useSelector(state => state.categories);
+  const { activeCategory, activeSubcategory } = useSelector(state => state.categories);
   const loading = useSelector(state => state.products.loading);
 
   const setFilter = (category, subcategory = '') => {
-    if (loading) return
-    dispatch(setCategoryFilter(category));
-    dispatch(setSubcategoryFilter(categoryFilter === category ? subcategory : ''));
-    dispatch(setCurrentPage(1));
+    if (!loading) {
+      dispatch(setActiveCategory(category));
+      dispatch(setActiveSubcategory(activeCategory === category ? subcategory : ''));
+      dispatch(setCurrentPage(1));
+    }
   };
 
-  const items = category.subcategory.length && category.subcategory.map(subcategory => (
-    <li key={subcategory} className={cn(styles.subcategory, {[styles.subcategoryActive]: subcategoryFilter === subcategory})}
-    onClick={() => setFilter(category.category, subcategory)}>
-      {subcategory}
+  const items = category.subcategories.length && category.subcategories.map(subcategory => (
+    <li key={subcategory._id} className={cn(styles.subcategory, {[styles.subcategoryActive]: activeSubcategory === subcategory.name})}
+     onClick={() => setFilter(category.name, subcategory.name)}>
+      {subcategory.name}
     </li>
   ));
 
   return (
     <li>
-      <p className={cn(styles.categoryTitle, {[styles.categoryTitleActive]: categoryFilter === category.category})}
-       onClick={() => setFilter(category.category)}>
-        {category.category}
+      <p className={cn(styles.categoryTitle, {[styles.categoryTitleActive]: activeCategory === category.name})}
+      onClick={() => setFilter(category.name)}>
+        {category.name}
       </p>
 
-      <ul className={cn(styles.subcategories, {[styles.subcategoriesActive]: (categoryFilter === category.category && items)})}>
+      <ul className={cn(styles.subcategories, {[styles.subcategoriesActive]: (activeCategory === category.name && items)})}>
         {items}
       </ul>
     </li>
   )
 }
 
-export default Category;
+export default CategoryList;
