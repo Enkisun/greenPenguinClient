@@ -31,24 +31,28 @@ const BasketProduct = ({ basketProduct }) => {
 
   return (
     <div className={styles.container}>
-      <Image 
-       className={styles.image}
-       src={basketProduct.image ? `http://localhost:5000/${basketProduct.image}` : '/defaultImage.svg'}
-       alt='product_image'
-       width='120px'
-       height='120px'
-      />
+      <div className={styles.portion}>
+        <Image 
+          className={styles.image}
+          src={basketProduct.image ? `http://localhost:5000/${basketProduct.image}` : '/defaultImage.svg'}
+          alt='product_image'
+          width='120px'
+          height='120px'
+        />
 
-      <div className={styles.info}>
-        <p className={styles.name}>{basketProduct.name}</p>
-        <span className={styles.volume}>{basketProduct.price} руб/шт</span>
+        <div className={styles.info}>
+          <p className={styles.name}>{basketProduct.name}</p>
+          <span className={styles.volume}>{basketProduct.price} руб/шт</span>
+        </div>
       </div>
 
-      <Counter count={basketProduct.count} increment={increment} decrement={decrement} type='basket' />
+      <div className={styles.portion}>
+        <Counter count={basketProduct.count} increment={increment} decrement={decrement} type='basket' />
 
-      <h4 className={styles.price}>{price} руб</h4>
+        <h4 className={styles.price}>{price} руб</h4>
 
-      <Image src='/delete.svg' alt='delete' width='17px' height='17px' className={styles.delete} onClick={deleteProduct} />
+        <Image src='/delete.svg' alt='delete' width='17px' height='17px' className={styles.delete} onClick={deleteProduct} />
+      </div>
     </div>
   )
 }

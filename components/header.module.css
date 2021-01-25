@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1366px;
+  max-width: 1366px;
   height: 89px;
   margin: 0 auto;
   padding: 0 30px 0;
@@ -107,7 +107,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1366px;
+  max-width: 1366px;
   height: 77px;
   margin: 0 auto;
   border: solid 1px rgba(151, 151, 151, 0.5);
